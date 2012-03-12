@@ -103,7 +103,7 @@ class sfGearmanWorker extends GearmanWorker
       $context = $this;
     }
 
-    return parent::addFunction($function, $callback, &$context, $timeout);
+    return parent::addFunction($function, $callback, $context, $timeout);
   }
 
   /**
