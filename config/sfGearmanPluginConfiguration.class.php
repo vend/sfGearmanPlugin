@@ -32,7 +32,18 @@ class sfGearmanPluginConfiguration extends sfPluginConfiguration
   {
     if (!extension_loaded('gearman'))
     {
-      throw new sfInitializationException('sfGearmanPlugin needs pecl/gearman module.');
+        sfGearman::$config = array();
+
+        $this->configuration->getEventDispatcher()->notify(new sfEvent(
+            $this,
+            'application.log',
+            array(
+                'priority' => sfLogger::ERR,
+                'You need gearman loaded to use sfGearmanPlugin'
+            )
+        ));
+
+        return;
     }
 
     if ($this->configuration instanceof sfApplicationConfiguration)
